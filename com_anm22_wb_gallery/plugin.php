@@ -443,7 +443,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                         </a>
                                         <?
                                         break;
-                                    case 'showall':		/* Case show all - function show-only */
+                                    case 'showAll':		/* Case show all - function show-only */
                                         echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
                                         break;
                                 }
@@ -519,7 +519,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                     </a>
                                                     <?
                                                     break;		/*Break same mode all function multi-show*/
-                                                case 'showall':		/* Case show all - mode all - function multi-show */
+                                                case 'showAll':		/* Case show all - mode all - function multi-show */
                                                     echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
                                                     break;
                                             }
@@ -598,7 +598,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                         </a>
                                                         <?
                                                         break;			/*Break same mode category function multi-show*/
-                                                    case 'showall':		/* Case show all - mode category - function multi-show */
+                                                    case 'showAll':		/* Case show all - mode category - function multi-show */
                                                         echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
                                                         break;
                                                 }
@@ -630,7 +630,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                     break;		/* Break dell'elementFunction multi-show */
                 case 'preview':		/* Case dell'elementFunction preview */
                     $galleryId = intval($this->getGalleryIdFromPermalink($this->page->getPageSublink()));
-                    if (isset($galleryId) && $galleryId!=0) {			/*Function show del preview/show attivata, passato come argomento della GET l'id gallery*/
+                    if (isset($galleryId) && ($galleryId != 0)) {			/*Function show del preview/show attivata, passato come argomento della GET l'id gallery*/
                         echo '<div class="gallery_container">';
                             $galleryToWorkOn = $galleriesContainer->getGalleryById($galleryId);
                             if ($this->galleryTitleShow) {
@@ -672,7 +672,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                 echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
                                             echo '</a>';
                                             break;			/*Break same mode "single" function "show" del preview/show*/
-                                        case 'showall':		/* Case show all - function preview */
+                                        case 'showAll':		/* Case show all - function preview */
                                             echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
                                             break;
                                     }
