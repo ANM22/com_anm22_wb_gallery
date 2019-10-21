@@ -403,69 +403,68 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                         if ($this->showGalleryDescription) {
                             echo '<div class="gallery_view_description">' . nl2br($galleryToWorkOn->getDescription()) . '</div>';
                         }
-                        for ($i=0;$i<$galleryToWorkOn->getImagesCount() && $i<$this->imgNumber;$i++) {
-                            $imagesArrayToWorkOn = $galleryToWorkOn->getImagesArray();
-                            ?>
-                            <div class="img_external_container" style="float:left;">
-                                <?
-                                if ($this->imgTitleShow) {
-                                    echo '<h2 class="img_title">' . $imagesArrayToWorkOn[$i]->getTitle() . '</h2>';
-                                }
-                                switch ($this->imgView) {	/* Switch per l'imgView function show-only */
-                                    case 'mp':			/*Case Magnific Popup function show-only*/
-                                        ?>
-                                        <script src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>ANM22WebBase/website/plugins/com_anm22_wb_gallery/js/jquery.magnific-popup.js"></script>
-                                        <script>
-                                            $(document).ready(function() {
-                                                $('.<?=$galleryToWorkOn->getCreationDate()?>').magnificPopup({type:'image',gallery:{enabled:true}});
-                                            });
-                                        </script>
-                                        <link rel="stylesheet" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>ANM22WebBase/website/plugins/com_anm22_wb_gallery/css/magnific-popup.css" />
-                                        <a class="<?=$galleryToWorkOn->getCreationDate()?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
-                                            <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                            <div class="clear-both-div" style="clear: both;"></div>
-                                        </a>
-                                        <?
-                                        break;
-                                    case 'blank':		/*Case blank (altra scheda) function show-only*/
-                                        ?>
-                                        <a target="_blank" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" class="<?=$galleryToWorkOn->getCreationDate?>" rel="group">
-                                            <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                            <div class="clear-both-div" style="clear: both;"></div>
-                                        </a>
-                                        <?
-                                        break;
-                                    case 'same':		/*Case same (stessa scheda) function show-only*/
-                                        ?>
-                                        <a target="_parent" class="<?=$galleryToWorkOn->getCreationDate?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
-                                            <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                            <div class="clear-both-div" style="clear:both;"></div>
-                                        </a>
-                                        <?
-                                        break;
-                                    case 'showAll':		/* Case show all - function show-only */
-                                        echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
-                                        break;
-                                }
-                                if ($this->imgDesc)  {
-                                    echo '<p class="img_description">' . $imagesArrayToWorkOn[$i]->getDescription() . '</p>';
-                                }
-                                if ($this->imgCreationDate) {
-                                    echo '<p class="img_creation_date">';
-                                        echo '<span class="date-label">';
-                                            if ($this->page->getPageLanguage() == 'it') {
-                                                echo 'Data';
-                                            } else {
-                                                echo 'Date';
-                                            }
-                                        echo '</span>';
-                                        echo date('d-m-Y',$imagesArrayToWorkOn[$i]->getCreationDate());
-                                    echo '</p>';
-                                }
-                                echo '<div class="clear-both-div" style="clear:both;"></div>';
-                            echo '</div>';
-                        }
-                        echo '<div class="clear-both-div" style="clear:both;"></div>';
+                        echo '<div class="imgs-container">';
+                            for ($i=0;$i<$galleryToWorkOn->getImagesCount() && $i<$this->imgNumber;$i++) {
+                                $imagesArrayToWorkOn = $galleryToWorkOn->getImagesArray();
+                                echo '<div class="img_external_container">';
+                                    if ($this->imgTitleShow) {
+                                        echo '<h2 class="img_title">' . $imagesArrayToWorkOn[$i]->getTitle() . '</h2>';
+                                    }
+                                    switch ($this->imgView) {	/* Switch per l'imgView function show-only */
+                                        case 'mp':			/*Case Magnific Popup function show-only*/
+                                            ?>
+                                            <script src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>ANM22WebBase/website/plugins/com_anm22_wb_gallery/js/jquery.magnific-popup.js"></script>
+                                            <script>
+                                                $(document).ready(function() {
+                                                    $('.<?=$galleryToWorkOn->getCreationDate()?>').magnificPopup({type:'image',gallery:{enabled:true}});
+                                                });
+                                            </script>
+                                            <link rel="stylesheet" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>ANM22WebBase/website/plugins/com_anm22_wb_gallery/css/magnific-popup.css" />
+                                            <a class="<?=$galleryToWorkOn->getCreationDate()?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
+                                                <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
+                                                <div class="clear-both-div" style="clear: both;"></div>
+                                            </a>
+                                            <?
+                                            break;
+                                        case 'blank':		/*Case blank (altra scheda) function show-only*/
+                                            ?>
+                                            <a target="_blank" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" class="<?=$galleryToWorkOn->getCreationDate?>" rel="group">
+                                                <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
+                                                <div class="clear-both-div" style="clear: both;"></div>
+                                            </a>
+                                            <?
+                                            break;
+                                        case 'same':		/*Case same (stessa scheda) function show-only*/
+                                            ?>
+                                            <a target="_parent" class="<?=$galleryToWorkOn->getCreationDate?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
+                                                <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
+                                                <div class="clear-both-div" style="clear:both;"></div>
+                                            </a>
+                                            <?
+                                            break;
+                                        case 'showAll':		/* Case show all - function show-only */
+                                            echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                            break;
+                                    }
+                                    if ($this->imgDesc)  {
+                                        echo '<p class="img_description">' . $imagesArrayToWorkOn[$i]->getDescription() . '</p>';
+                                    }
+                                    if ($this->imgCreationDate) {
+                                        echo '<p class="img_creation_date">';
+                                            echo '<span class="date-label">';
+                                                if ($this->page->getPageLanguage() == 'it') {
+                                                    echo 'Data';
+                                                } else {
+                                                    echo 'Date';
+                                                }
+                                            echo '</span>';
+                                            echo date('d-m-Y',$imagesArrayToWorkOn[$i]->getCreationDate());
+                                        echo '</p>';
+                                    }
+                                    echo '<div class="clear-both-div" style="clear:both;"></div>';
+                                echo '</div>';
+                            }
+                        echo '</div>';
                     echo '</div>';
                     break;						/*Break dell'elementFunction show-only*/
                 case 'multiShow':			/* Case per l'elementFunction multi-show */
@@ -650,51 +649,52 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                 <link rel="stylesheet" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>ANM22WebBase/website/plugins/com_anm22_wb_gallery/css/magnific-popup.css" />
                                 <?
                             }
-                            for ($i=0;$i<$galleryToWorkOn->getImagesCount();$i++) {
-                                $imagesArrayToWorkOn = $galleryToWorkOn->getImagesArray();
-                                echo '<div class="img_external_container" style="float:left;">';
-                                    if ($this->imgTitleShow) {
-                                        echo '<h2 class="img_title">' . $imagesArrayToWorkOn[$i]->getTitle() . '</h2>';
-                                    }
-                                    switch($this->imgView) {
-                                        case 'mp':		/* Case mp mode "single" function "show" del preview/show */
-                                            echo '<a class="' . $galleryToWorkOn->getCreationDate() . '" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" rel="group">';
-                                                echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
-                                            echo '</a>';
-                                            break;			/*Break mp mode "single" function "show" del preview/show*/
-                                        case 'blank':	/* Case blank mode "single" function "show" del preview/show*/
-                                            echo '<a target="_blank" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" class="' . $galleryToWorkOn->getCreationDate . '" rel="group">';
-                                                echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
-                                            echo '</a>';
-                                            break;			/*Break blank mode "single" function "show" del preview/show*/
-                                        case 'same':	/* Case same mode "single" function "show" del preview/show*/
-                                            echo '<a target="_parent" class="' . $galleryToWorkOn->getCreationDate . '" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" rel="group">';
-                                                echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
-                                            echo '</a>';
-                                            break;			/*Break same mode "single" function "show" del preview/show*/
-                                        case 'showAll':		/* Case show all - function preview */
-                                            echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
-                                            break;
-                                    }
-                                    if ($this->imgCreationDate) {
-                                        echo '<p class="img_creation_date">';
-                                            echo '<span class="date-label">';
-                                                if ($this->page->getPageLanguage() == 'it') {
-                                                    echo 'Data';
-                                                } else {
-                                                    echo 'Date';
-                                                }
-                                            echo '</span>';
-                                            echo date('d-m-Y',$imagesArrayToWorkOn[$i]->getCreationDate());
-                                        echo '</p>';
-                                    }
-                                    if($this->imgDesc){
-                                        echo '<p class="img_description">' . $imagesArrayToWorkOn[$i]->getDescription() . '</p>';
-                                    }
-                                echo '</div>';
-                            }
+                            echo '<div class="imgs-container">';
+                                for ($i=0;$i<$galleryToWorkOn->getImagesCount();$i++) {
+                                    $imagesArrayToWorkOn = $galleryToWorkOn->getImagesArray();
+                                    echo '<div class="img_external_container">';
+                                        if ($this->imgTitleShow) {
+                                            echo '<h2 class="img_title">' . $imagesArrayToWorkOn[$i]->getTitle() . '</h2>';
+                                        }
+                                        switch($this->imgView) {
+                                            case 'mp':		/* Case mp mode "single" function "show" del preview/show */
+                                                echo '<a class="' . $galleryToWorkOn->getCreationDate() . '" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" rel="group">';
+                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
+                                                echo '</a>';
+                                                break;			/*Break mp mode "single" function "show" del preview/show*/
+                                            case 'blank':	/* Case blank mode "single" function "show" del preview/show*/
+                                                echo '<a target="_blank" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" class="' . $galleryToWorkOn->getCreationDate . '" rel="group">';
+                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
+                                                echo '</a>';
+                                                break;			/*Break blank mode "single" function "show" del preview/show*/
+                                            case 'same':	/* Case same mode "single" function "show" del preview/show*/
+                                                echo '<a target="_parent" class="' . $galleryToWorkOn->getCreationDate . '" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" rel="group">';
+                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
+                                                echo '</a>';
+                                                break;			/*Break same mode "single" function "show" del preview/show*/
+                                            case 'showAll':		/* Case show all - function preview */
+                                                echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                break;
+                                        }
+                                        if ($this->imgCreationDate) {
+                                            echo '<p class="img_creation_date">';
+                                                echo '<span class="date-label">';
+                                                    if ($this->page->getPageLanguage() == 'it') {
+                                                        echo 'Data';
+                                                    } else {
+                                                        echo 'Date';
+                                                    }
+                                                echo '</span>';
+                                                echo date('d-m-Y',$imagesArrayToWorkOn[$i]->getCreationDate());
+                                            echo '</p>';
+                                        }
+                                        if($this->imgDesc){
+                                            echo '<p class="img_description">' . $imagesArrayToWorkOn[$i]->getDescription() . '</p>';
+                                        }
+                                    echo '</div>';
+                                }
+                            echo '</div>';
                         echo '</div>';
-                        echo '<div class="clear-both-div" style="clear: both;"></div>';
                     } else {		/* Function preview del preview/show attivata */
                         switch ($this->mode) {
                             case 'all':		/* Case all function "preview" del preview/show */
