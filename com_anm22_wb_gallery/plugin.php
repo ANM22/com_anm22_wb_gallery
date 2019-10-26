@@ -131,10 +131,10 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                             }
                                             if ($this->thumbnailGallery) {
                                                 if($galleryToWorkOn->getImagesCount() == 0){
-                                                    echo '<div class="img_container" style="background-image:url(https://www.anm22.it/app/webbase/images/Icone/gallery.png);background-size:cover;"></div>';
+                                                    echo '<div src="https://www.anm22.it/app/webbase/images/Icone/gallery.png" class="img_container" />';
                                                 } else {
                                                     $iArray = $galleryToWorkOn->getImagesArray();
-                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png" class="img_container" />';
                                                 }
                                             }
                                             if ($this->galleryCreationDate) {
@@ -226,10 +226,10 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                             }
                                             if ($this->thumbnailGallery) {
                                                 if($galleryToWorkOn->getImagesCount() == 0){
-                                                    echo '<div class="img_container" style="background-image:url(https://www.anm22.it/app/webbase/images/Icone/gallery.png);background-size:cover;"></div>';
+                                                    echo '<img src="https://www.anm22.it/app/webbase/images/Icone/gallery.png" class="img_container" />';
                                                 } else {
                                                     $iArray = $galleryToWorkOn->getImagesArray();
-                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png" class="img_container" />';
                                                 }
                                             }
                                                             
@@ -323,10 +323,10 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                             }
                                             if($this->thumbnailGallery){
                                                 if($galleryToWorkOn->getImagesCount() == 0){
-                                                    echo '<div class="img_container" style="background-image:url(https://www.anm22.it/app/webbase/images/Icone/gallery.png);background-size:cover;"></div>';
+                                                    echo '<img src="https://www.anm22.it/app/webbase/images/Icone/gallery.png" class="img_container" />';
                                                 } else {
                                                     $iArray = $galleryToWorkOn->getImagesArray();
-                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/>' . $iArray[0]->getCreationDate().'.png);background-size:cover;"></div>';
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/>' . $iArray[0]->getCreationDate().'.png" class="img_container" />';
                                                 }
                                             }
                                             if ($this->galleryCreationDate) {
@@ -421,29 +421,26 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                             </script>
                                             <link rel="stylesheet" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>ANM22WebBase/website/plugins/com_anm22_wb_gallery/css/magnific-popup.css" />
                                             <a class="<?=$galleryToWorkOn->getCreationDate()?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
-                                                <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                <div class="clear-both-div" style="clear: both;"></div>
+                                                <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                             </a>
                                             <?
                                             break;
                                         case 'blank':		/*Case blank (altra scheda) function show-only*/
                                             ?>
                                             <a target="_blank" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" class="<?=$galleryToWorkOn->getCreationDate?>" rel="group">
-                                                <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                <div class="clear-both-div" style="clear: both;"></div>
+                                                <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                             </a>
                                             <?
                                             break;
                                         case 'same':		/*Case same (stessa scheda) function show-only*/
                                             ?>
                                             <a target="_parent" class="<?=$galleryToWorkOn->getCreationDate?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
-                                                <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                <div class="clear-both-div" style="clear:both;"></div>
+                                                <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                             </a>
                                             <?
                                             break;
                                         case 'showAll':		/* Case show all - function show-only */
-                                            echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                            echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png" class="img_container" />';
                                             break;
                                     }
                                     if ($this->imgDesc)  {
@@ -497,29 +494,26 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                     </script>
                                                     <link rel="stylesheet" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>ANM22WebBase/website/plugins/com_anm22_wb_gallery/css/magnific-popup.css" />
                                                     <a class="<?=$galleryToWorkOn->getCreationDate()?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
-                                                        <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                        <div class="clear-both-div" style="clear: both;"></div>
+                                                        <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                                     </a>
                                                     <?
-                                                break;		/*Break mp mode all function multi-show*/
+                                                break;                  /*Break mp mode all function multi-show*/
                                                 case 'blank':		/*Case blank mode all function multi-show*/
                                                     ?>
                                                     <a target="_blank" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" class="<?=$galleryToWorkOn->getCreationDate?>" rel="group">
-                                                        <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                        <div class="clear-both-div" style="clear: both;"></div>
+                                                        <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                                     </a>
                                                     <?
-                                                break;		/*Break blank mode all function multi-show*/
+                                                break;                  /*Break blank mode all function multi-show*/
                                                 case 'same':		/*Case same mode all function multi-show*/
                                                     ?>
                                                     <a target="_parent" class="<?=$galleryToWorkOn->getCreationDate?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
-                                                        <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                        <div class="clear-both-div" style="clear: both;"></div>
+                                                        <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                                     </a>
                                                     <?
                                                     break;		/*Break same mode all function multi-show*/
                                                 case 'showAll':		/* Case show all - mode all - function multi-show */
-                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png" class="img_container" />';
                                                     break;
                                             }
                                             if ($this->imgDesc){
@@ -576,29 +570,26 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                         </script>
                                                         <link rel="stylesheet" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>ANM22WebBase/website/plugins/com_anm22_wb_gallery/css/magnific-popup.css" />
                                                         <a class="<?=$galleryToWorkOn->getCreationDate()?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
-                                                            <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                            <div class="clear-both-div" style="clear:both;"></div>
+                                                            <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                                         </a>
                                                         <?
                                                         break;			/*Break mp mode category function multi-show*/
-                                                    case 'blank':	/*Case blank mode category function multi-show*/
+                                                    case 'blank':               /*Case blank mode category function multi-show*/
                                                         ?>
                                                         <a target="_blank" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" class="<?=$galleryToWorkOn->getCreationDate?>" rel="group">
-                                                            <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                            <div class="clear-both-div" style="clear:both;"></div>
+                                                            <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                                         </a>
                                                         <?
                                                         break;			/*Break blank mode category function multi-show*/
-                                                    case 'same':	/*Case same mode category function multi-show*/
+                                                    case 'same':                /*Case same mode category function multi-show*/
                                                         ?>
                                                         <a target="_parent" class="<?=$galleryToWorkOn->getCreationDate?>" href="<?=$this->page->getHomeFolderRelativeHTMLURL()?>img/<?=$imagesArrayToWorkOn[$i]->getPermalink()?>/" rel="group">
-                                                            <div class="img_container" style="background-image: url(<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png);background-size:cover;"></div>
-                                                            <div class="clear-both-div" style="clear:both;"></div>
+                                                            <img src="<?=$this->page->getHomeFolderRelativeHTMLURL()?>gallery/<?=$imagesArrayToWorkOn[$i]->getCreationDate()?>_thumb.png" class="img_container" />
                                                         </a>
                                                         <?
                                                         break;			/*Break same mode category function multi-show*/
                                                     case 'showAll':		/* Case show all - mode category - function multi-show */
-                                                        echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                        echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png" class="img_container" />';
                                                         break;
                                                 }
                                                 if($this->imgDesc){
@@ -659,21 +650,21 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                         switch($this->imgView) {
                                             case 'mp':		/* Case mp mode "single" function "show" del preview/show */
                                                 echo '<a class="' . $galleryToWorkOn->getCreationDate() . '" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" rel="group">';
-                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png" class="img_container" />';
                                                 echo '</a>';
                                                 break;			/*Break mp mode "single" function "show" del preview/show*/
                                             case 'blank':	/* Case blank mode "single" function "show" del preview/show*/
                                                 echo '<a target="_blank" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" class="' . $galleryToWorkOn->getCreationDate . '" rel="group">';
-                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png" class="img_container" />';
                                                 echo '</a>';
                                                 break;			/*Break blank mode "single" function "show" del preview/show*/
                                             case 'same':	/* Case same mode "single" function "show" del preview/show*/
                                                 echo '<a target="_parent" class="' . $galleryToWorkOn->getCreationDate . '" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" rel="group">';
-                                                    echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png);background-size:cover;"></div>';
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png" class="img_container" />';
                                                 echo '</a>';
                                                 break;			/*Break same mode "single" function "show" del preview/show*/
                                             case 'showAll':		/* Case show all - function preview */
-                                                echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png" class="img_container" />';
                                                 break;
                                         }
                                         if ($this->imgCreationDate) {
@@ -713,10 +704,10 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                 }
                                                 if ($this->thumbnailGallery) {
                                                     if ($galleryToWorkOn->getImagesCount() == 0) {
-                                                        echo '<div class="img_container" style="background-image: url(https://www.anm22.it/app/webbase/images/Icone/gallery.png);background-size:cover;"></div>';
+                                                        echo '<img src="https://www.anm22.it/app/webbase/images/Icone/gallery.png" class="img_container" />';
                                                     } else {
                                                         $iArray = $galleryToWorkOn->getImagesArray();
-                                                        echo '<div class="img_container" style="background-image: url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                        echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png" class="img_container" />';
                                                     }
                                                 }
                                                 if ($this->galleryCreationDate){
@@ -761,10 +752,10 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                 }
                                                 if ($this->thumbnailGallery){
                                                     if ($galleryToWorkOn->getImagesCount() == 0) {
-                                                        echo '<div class="img_container" style="background-image:url(https://www.anm22.it/app/webbase/images/Icone/gallery.png);background-size:cover;"></div>';
+                                                        echo '<img src="https://www.anm22.it/app/webbase/images/Icone/gallery.png" class="img_container" />';
                                                     } else {
                                                         $iArray = $galleryToWorkOn->getImagesArray();
-                                                        echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                        echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png" class="img_container" />';
                                                     }
                                                 }
                                                 if ($this->galleryCreationDate){
@@ -810,10 +801,10 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                 }
                                                 if ($this->thumbnailGallery) {
                                                     if($galleryToWorkOn->getImagesCount() == 0){
-                                                        echo '<div class="img_container" style="background-image:url(https://www.anm22.it/app/webbase/images/Icone/gallery.png);background-size:cover;"></div>';
+                                                        echo '<img src="https://www.anm22.it/app/webbase/images/Icone/gallery.png" class="img_container" />';
                                                     } else {
                                                         $iArray = $galleryToWorkOn->getImagesArray();
-                                                        echo '<div class="img_container" style="background-image:url(' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png);background-size:cover;"></div>';
+                                                        echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate() . '.png" class="img_container" />';
                                                     }
                                                 }
                                                 if ($this->galleryCreationDate) {
