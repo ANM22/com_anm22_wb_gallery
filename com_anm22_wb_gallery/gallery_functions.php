@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Galleries collection object
+ */
 class anm22_wb_galleries {
 
     private $galleries;
@@ -10,10 +13,21 @@ class anm22_wb_galleries {
         $categories = array();
     }
 
+    /**
+     * All galleries
+     * 
+     * @return anm22_wb_gallery[]
+     */
     function getGalleriesArray() {
         return $this->galleries;
     }
 
+    /**
+     * Swap galleries position
+     * 
+     * @param anm22_wb_gallery $indexOne
+     * @param anm22_wb_gallery $indexTwo
+     */
     function swapGalleries($indexOne, $indexTwo) {
         $tempGallery;
         $tempGallery = $this->galleries[$indexOne];
@@ -21,6 +35,11 @@ class anm22_wb_galleries {
         $this->galleries[$indexTwo] = $tempGallery;
     }
 
+    /**
+     * Add gallery category
+     * 
+     * @param string $categoryName Category name
+     */
     function addCategory($categoryName) {
         $existing = false;
         if (!empty($this->categories)) {
@@ -38,6 +57,9 @@ class anm22_wb_galleries {
         }
     }
 
+    /**
+     * @param string $categoryName Category name
+     */
     function removeCategory($categoryName) {
         if (!empty($this->categories)) {
             foreach ($this->categories as $key => $name) {
@@ -49,10 +71,23 @@ class anm22_wb_galleries {
         }
     }
 
+    /**
+     * Add gallery
+     * 
+     * @param anm22_wb_gallery $galleryToAdd Gallery to add
+     * @return $this
+     */
     function addGallery($galleryToAdd) {
         $this->galleries[] = $galleryToAdd;
+        return $this;
     }
 
+    /**
+     * Remove gallery
+     * 
+     * @param integer $galleryTs Gallery id
+     * @return $this
+     */
     function removeGallery($galleryTs) {
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
             if ($this->galleries[$k]->getCreationDate() == $galleryTs) {
@@ -61,8 +96,19 @@ class anm22_wb_galleries {
                 break;
             }
         }
+        return $this;
     }
 
+    /**
+     * Edit gallery by id
+     * 
+     * @param integer $galleryTs Gallery id
+     * @param string $newGalleryTitle Gallery title
+     * @param string $newGalleryCategory Gallery category name
+     * @param boolean $newGalleryPublic Gallery visibility status
+     * @param string $newGalleryDescription Gallery description
+     * @return $this
+     */
     function editGalleryById($galleryTs, $newGalleryTitle, $newGalleryCategory, $newGalleryPublic, $newGalleryDescription = "") {
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
             if ($this->galleries[$k]->getCreationDate() == $galleryTs) {
@@ -73,8 +119,19 @@ class anm22_wb_galleries {
                 break;
             }
         }
+        return $this;
     }
 
+    /**
+     * Edit image
+     * 
+     * @param integer $galleryId Gallery id
+     * @param integer $imageId Image id
+     * @param string $imageNewName Image name
+     * @param string $imageNewTitle Image title
+     * @param string $imageNewDescription Image description
+     * @return $this
+     */
     function editImageById($galleryId, $imageId, $imageNewName, $imageNewTitle, $imageNewDescription) {
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
             if ($this->galleries[$k]->getCreationDate() == $galleryId) {
@@ -88,11 +145,17 @@ class anm22_wb_galleries {
                 }
             }
         }
+        return $this;
     }
 
+    /**
+     * Get gallery by id
+     * 
+     * @param integer $galleryTs Gallery Id
+     * @return anm22_wb_gallery
+     */
     function getGalleryById($galleryTs) {
-        $k;
-        $galleryToBeReturned;
+        $galleryToBeReturned = null;
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
             if ($this->galleries[$k]->getCreationDate() == $galleryTs) {
                 $galleryToBeReturned = $this->galleries[$k];
@@ -102,6 +165,13 @@ class anm22_wb_galleries {
         return $galleryToBeReturned;
     }
 
+    /**
+     * Add image to gallery
+     * 
+     * @param integer $galleryId Gallery id
+     * @param anm22_wb_img $newImage Image to add
+     * @return $this
+     */
     function addImageToGallery($galleryId, $newImage) {
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
             if ($this->galleries[$k]->getCreationDate() == $galleryId) {
@@ -109,8 +179,16 @@ class anm22_wb_galleries {
                 break;
             }
         }
+        return $this;
     }
 
+    /**
+     * Remove image to gallery
+     * 
+     * @param integer $galleryId Gallery id
+     * @param anm22_wb_img $imageId Gallery to remove
+     * @return $this
+     */
     function removeImageFromGallery($galleryId, $imageId) {
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
             if ($this->galleries[$k]->getCreationDate() == $galleryId) {
@@ -118,8 +196,16 @@ class anm22_wb_galleries {
                 break;
             }
         }
+        return $this;
     }
 
+    /**
+     * Change image position
+     * 
+     * @param integer $galleryId Gallery id
+     * @param anm22_wb_img $imageId Image to move
+     * @return $this
+     */
     function moveImageToTheLeft($galleryId, $imageId) {
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
             if ($this->galleries[$k]->getCreationDate() == $galleryId) {
@@ -135,8 +221,16 @@ class anm22_wb_galleries {
                 }
             }
         }
+        return $this;
     }
 
+    /**
+     * Change image position
+     * 
+     * @param integer $galleryId Gallery id
+     * @param anm22_wb_img $imageId Image to move
+     * @return $this
+     */
     function moveImageToTheRight($galleryId, $imageId) {
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
             if ($this->galleries[$k]->getCreationDate() == $galleryId) {
@@ -152,8 +246,17 @@ class anm22_wb_galleries {
                 }
             }
         }
+        return $this;
     }
 
+    /**
+     * Move image to gallery
+     * 
+     * @param integer $imageId Image id
+     * @param integer $oldGalleryId Move image from
+     * @param integer $newGalleryId Move image to
+     * @return $this
+     */
     function editImageContainingGallery($imageId, $oldGalleryId, $newGalleryId) {
         $imageToSwitch;
         for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
@@ -169,16 +272,27 @@ class anm22_wb_galleries {
                 break;
             }
         }
+        return $this;
     }
 
     function toStringDebug() {
         return 'Sono presenti ' . $this->getGalleriesCount() . ' gallery.';
     }
 
+    /**
+     * Get number of galleries
+     * 
+     * @return type
+     */
     function getGalleriesCount() {
         return count($this->galleries);
     }
 
+    /**
+     * Get categories list
+     * 
+     * @return string[]
+     */
     function getCategories() {
         return $this->categories;
     }
@@ -208,6 +322,12 @@ class anm22_wb_galleries {
         return $associativeArray;
     }
     
+    /**
+     * Import data from json
+     * 
+     * @param type $jsonArray
+     * @return $this
+     */
     function importValuesFromJson($jsonArray) {
         if ($jsonArray) {
             foreach ($jsonArray as $gallery) {
@@ -221,12 +341,13 @@ class anm22_wb_galleries {
                 $this->addCategory($galleryObject->getCategory());
             }
         }
+        return $this;
     }
 
 }
 
 /**
- * Classe dell'oggetto gallery
+ * Gallery object
  */
 class anm22_wb_gallery {
 
@@ -246,6 +367,12 @@ class anm22_wb_gallery {
         $this->description = $galleryDescription;
     }
 
+    /**
+     * Get image by id
+     * 
+     * @param integer $imageId Image id
+     * @return anm22_wb_img
+     */
     function getImageById($imageId) {
         $imageToBeReturned = NULL;
         for ($k = 0; $k < $this->getImagesCount(); $k++) {
@@ -257,18 +384,43 @@ class anm22_wb_gallery {
         return $imageToBeReturned;
     }
 
+    /**
+     * Get images
+     * 
+     * @return anm22_wb_img[]
+     */
     function getImagesArray() {
         return $this->images;
     }
 
+    /**
+     * Add images to array
+     * 
+     * @param anm22_wb_img[] $imagesArray Images to add
+     * @return $this
+     */
     function setImagesWholeArray($imagesArray) {
         $this->images = $imagesArray;
+        return $this;
     }
 
+    /**
+     * Add image to gallery
+     * 
+     * @param anm22_wb_img $imageToAdd Image to add
+     * @return $this
+     */
     function addImage($imageToAdd) {
         $this->images[] = $imageToAdd;
+        return $this;
     }
 
+    /**
+     * Remove image
+     * 
+     * @param integer $imageToRemoveId
+     * @return $this
+     */
     function removeImage($imageToRemoveId) {
         foreach ($this->images as $key => $image) {
             if ($imageToRemoveId == $image->getCreationDate()) {
@@ -277,10 +429,11 @@ class anm22_wb_gallery {
                 break;
             }
         }
+        return $this;
     }
 
     /**
-     * Ottieni titolo gallery
+     * Get gallery title
      * 
      * @return string
      */
@@ -289,7 +442,7 @@ class anm22_wb_gallery {
     }
 
     /**
-     * Imposta titolo gallery
+     * Set gallery title
      * 
      * @param string $newTitle
      * @return $this
@@ -300,7 +453,7 @@ class anm22_wb_gallery {
     }
 
     /**
-     * Ottieni descrizione gallery
+     * Get gallery description
      * 
      * @return string
      */
@@ -309,9 +462,9 @@ class anm22_wb_gallery {
     }
 
     /**
-     * Imposta descrizione gallery
+     * Set gallery description
      * 
-     * @param string $description Descrizione
+     * @param string $description Description
      * @return $this
      */
     function setDescription($description) {
@@ -346,6 +499,11 @@ class anm22_wb_gallery {
         return $this;
     }
 
+    /**
+     * Get image ordered by date
+     * 
+     * @return anm22_wb_img[]
+     */
     function getImagesByDate() {
         $imagesOrderedByDate = array();
         $tmpArray = array();
@@ -367,18 +525,39 @@ class anm22_wb_gallery {
         return $imagesOrderedByDate;
     }
 
+    /**
+     * Add image
+     * 
+     * @param anm22_wb_img $newImage Image
+     * @param integer $index Position
+     * @return $this
+     */
     function addImageAtIndex($newImage, $index) {
         $firstPart = array_slice($this->images, 0, $index);
         $secondPart = array_slice($this->images, $index);
         $this->images = $firstPart;
         $this->images[] = $newImage;
         $this->images = array_merge($this->images, $secondPart);
+        return $this;
     }
 
+    /**
+     * Set image
+     * 
+     * @param anm22_wb_img $image
+     * @param integer $index
+     * @return $this
+     */
     function setImageAtIndex($image, $index) {
         $this->images[$index] = $image;
+        return $this;
     }
 
+    /**
+     * Get number of images
+     * 
+     * @return integer
+     */
     function getImagesCount() {
         return count($this->images);
     }
@@ -388,9 +567,9 @@ class anm22_wb_gallery {
     }
     
     /**
-     * Importa proprietà oggetto dall'array associativo
+     * Import data by gallery associative array
      * 
-     * @param mixed[] $gallery Array associativo dell'oggetto gallery
+     * @param mixed[] $gallery Gallery associative array
      * @return $this
      */
     function importValuesFromJson($gallery) {
@@ -417,7 +596,7 @@ class anm22_wb_gallery {
 }
 
 /**
- * Classe oggetto immagine
+ * Image object
  */
 class anm22_wb_img {
 

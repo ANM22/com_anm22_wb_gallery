@@ -1,5 +1,5 @@
 # com_anm22_wb_gallery - WebBase plugin
-![version](https://img.shields.io/badge/version-3.0-blue)
+![version](https://img.shields.io/badge/version-3.1-blue)
 
 com_anm22_wb_gallery is the official plugin of Gallery module of ANM22 WebBase CMS.
 

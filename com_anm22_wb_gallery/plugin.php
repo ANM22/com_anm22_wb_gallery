@@ -30,6 +30,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
     var $imgTitleShow;				/*Scelta sul mostrare o no il titolo di un'immagine*/
     var $imgCreationDate;			/*Scelta sul mostrare o no la data di creazione di un'immagine*/
     var $imgDesc;				/*Scelta sul mostrare o no la descrizione di un'immagine*/
+    protected $seoTags = false;
 
     var $galleryId = 0;				/*Id della gallery*/
     var $seeButton;				/*Scelta sul mostrare o no il button visualizza album*/
@@ -60,6 +61,9 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
         $this->cssClass = htmlspecialchars_decode($xml->cssClass);
         $this->seeButton = htmlspecialchars_decode($xml->seeButton);
         $this->imgDesc = htmlspecialchars_decode($xml->imgDesc);
+        if (isset($xml->seoTags)) {
+            $this->seoTags = $xml->seoTags;
+        }
 
         if ($this->mode == "single" || $this->elementFunction == "show" || $this->elementFunction == "preview") {
 
@@ -79,12 +83,47 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                 /*Creates the galleries container*/
                 foreach ($jsonArray as $gallery) {
                     /*Objects*/
-                    $galleryObject = new anm22_wb_gallery($gallery["title"],$gallery["category"],$gallery["publicBool"],$gallery["creationDate"]);
+                    $galleryObject = new anm22_wb_gallery($gallery["title"],$gallery["category"],$gallery["publicBool"],$gallery["creationDate"],$gallery["description"]);
                     foreach($gallery["images"] as $image){
                         $imageObject = new anm22_wb_img($image["name"],$image["extension"],$image["title"],$image["creationDate"],$image["description"]);
                         $galleryObject->addImage($imageObject);
                     }
                     $galleriesContainer->addGallery($galleryObject);
+                }
+            }
+        }
+        
+        /* Seo tags */
+        if ($this->seoTags) {
+            $isSingleGallery = false;
+            if ($this->elementFunction == "show") {
+                $isSingleGallery = true;
+                $gallery = $galleriesContainer->getGalleryByTitle($this->selectedGalleryTitle);
+            }
+            if ($this->elementFunction == "preview") {
+                $galleryId = intval($this->getGalleryIdFromPermalink($this->page->getPageSublink()));
+                if (isset($galleryId) && ($galleryId != 0)) {
+                    $gallery = $galleriesContainer->getGalleryById($galleryId);
+                    $isSingleGallery = true;
+                }
+            }
+            
+            if ($isSingleGallery) {
+                if (($gallery->getTitle()) and ($gallery->getTitle() != "")) {
+                    $this->page->title = $gallery->getTitle();
+                }
+                if (($gallery->getDescription()) and ($gallery->getDescription() != "")) {
+                    $descriptionString = str_replace("\n"," ",str_replace('"', "", $gallery->getDescription()));
+                    
+                    if (strlen($descriptionString) > 160) {
+                        $this->page->description = htmlspecialchars(substr($descriptionString, 0, 160))."...";
+                    } else {
+                        $this->page->description = htmlspecialchars($descriptionString);
+                    }
+                }
+                if ($gallery->getImagesArray()) {
+                    $imageId = $gallery->getImagesArray()[0]->getCreationDate();
+                    $this->page->image = "http".($_SERVER['HTTPS']?"s":"")."://" . $_SERVER['HTTP_HOST'] . "/img/" . $gallery->getImagesArray()[0]->getPermalink() . "/img.png";
                 }
             }
         }
@@ -326,7 +365,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                                     echo '<img src="https://www.anm22.it/app/webbase/images/Icone/gallery.png" class="img_container" />';
                                                 } else {
                                                     $iArray = $galleryToWorkOn->getImagesArray();
-                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/>' . $iArray[0]->getCreationDate().'.png" class="img_container" />';
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $iArray[0]->getCreationDate().'.png" class="img_container" />';
                                                 }
                                             }
                                             if ($this->galleryCreationDate) {
