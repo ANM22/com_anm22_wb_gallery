@@ -65,31 +65,25 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
             $this->seoTags = $xml->seoTags;
         }
 
-        if ($this->mode == "single" || $this->elementFunction == "show" || $this->elementFunction == "preview") {
+        /*Reading the JSON file*/
+        $jsonFile = NULL;
+        $jsonFile = file_get_contents($this->page->getHomeFolderRelativePHPURL()."gallery/gallery.json");
 
-            /*Reading the JSon file*/
+        /*Decoding the file to an associative array*/
+        $jsonArray = json_decode($jsonFile,true);
+        $galleriesContainer = new anm22_wb_galleries();
 
-            $jsonFile = NULL;
-            $jsonFile = file_get_contents($this->page->getHomeFolderRelativePHPURL()."gallery/gallery.json");
-
-            /*Decoding the file to an associative array*/
-
-            $jsonArray = json_decode($jsonFile,true);
-            $galleriesContainer = new anm22_wb_galleries();
-
-            /*Elaborating array into objects*/
-
-            if (is_array($jsonArray)) {
-                /*Creates the galleries container*/
-                foreach ($jsonArray as $gallery) {
-                    /*Objects*/
-                    $galleryObject = new anm22_wb_gallery($gallery["title"],$gallery["category"],$gallery["publicBool"],$gallery["creationDate"],$gallery["description"]);
-                    foreach($gallery["images"] as $image){
-                        $imageObject = new anm22_wb_img($image["name"],$image["extension"],$image["title"],$image["creationDate"],$image["description"]);
-                        $galleryObject->addImage($imageObject);
-                    }
-                    $galleriesContainer->addGallery($galleryObject);
+        /*Elaborating array into objects*/
+        if (is_array($jsonArray)) {
+            /*Creates the galleries container*/
+            foreach ($jsonArray as $gallery) {
+                /*Objects*/
+                $galleryObject = new anm22_wb_gallery($gallery["title"],$gallery["category"],$gallery["publicBool"],$gallery["creationDate"],$gallery["description"]);
+                foreach($gallery["images"] as $image){
+                    $imageObject = new anm22_wb_img($image["name"],$image["extension"],$image["title"],$image["creationDate"],$image["description"]);
+                    $galleryObject->addImage($imageObject);
                 }
+                $galleriesContainer->addGallery($galleryObject);
             }
         }
         

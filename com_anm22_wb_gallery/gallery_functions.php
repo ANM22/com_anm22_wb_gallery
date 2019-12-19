@@ -166,6 +166,23 @@ class anm22_wb_galleries {
     }
 
     /**
+     * Get gallery by title
+     * 
+     * @param integer $galleryTitle Gallery title
+     * @return anm22_wb_gallery
+     */
+    function getGalleryByTitle($galleryTitle) {
+        $galleryToBeReturned = null;
+        for ($k = 0; $k < $this->getGalleriesCount(); $k++) {
+            if ($this->galleries[$k]->getTitle() == $galleryTitle) {
+                $galleryToBeReturned = $this->galleries[$k];
+                break;
+            }
+        }
+        return $galleryToBeReturned;
+    }
+
+    /**
      * Add image to gallery
      * 
      * @param integer $galleryId Gallery id
