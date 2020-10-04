@@ -681,23 +681,27 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                                             echo '<h2 class="img_title">' . $imagesArrayToWorkOn[$i]->getTitle() . '</h2>';
                                         }
                                         switch($this->imgView) {
-                                            case 'mp':		/* Case mp mode "single" function "show" del preview/show */
+                                            case 'mp':                  /* Case mp mode "single" function "show" del preview/show */
                                                 echo '<a class="' . $galleryToWorkOn->getCreationDate() . '" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" rel="group">';
                                                     echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png" class="img_container" />';
                                                 echo '</a>';
-                                                break;			/*Break mp mode "single" function "show" del preview/show*/
-                                            case 'blank':	/* Case blank mode "single" function "show" del preview/show*/
+                                                break;			/* Break mp mode "single" function "show" del preview/show */
+                                            case 'blank':               /* Case blank mode "single" function "show" del preview/show */
                                                 echo '<a target="_blank" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" class="' . $galleryToWorkOn->getCreationDate . '" rel="group">';
                                                     echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png" class="img_container" />';
                                                 echo '</a>';
-                                                break;			/*Break blank mode "single" function "show" del preview/show*/
-                                            case 'same':	/* Case same mode "single" function "show" del preview/show*/
+                                                break;			/* Break blank mode "single" function "show" del preview/show */
+                                            case 'same':                /* Case same mode "single" function "show" del preview/show */
                                                 echo '<a target="_parent" class="' . $galleryToWorkOn->getCreationDate . '" href="' . $this->page->getHomeFolderRelativeHTMLURL() . 'img/' . $imagesArrayToWorkOn[$i]->getPermalink() . '/" rel="group">';
                                                     echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '_thumb.png" class="img_container" />';
                                                 echo '</a>';
-                                                break;			/*Break same mode "single" function "show" del preview/show*/
+                                                break;			/* Break same mode "single" function "show" del preview/show */
                                             case 'showAll':		/* Case show all - function preview */
-                                                echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png" class="img_container" />';
+                                                if ($imagesArrayToWorkOn[$i]->getType() == 'video') {
+                                                    echo '<iframe src="https://www.youtube.com/embed/' . $imagesArrayToWorkOn[$i]->getVideoId() . '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="video-container"></iframe>';
+                                                } else {
+                                                    echo '<img src="' . $this->page->getHomeFolderRelativeHTMLURL() . 'gallery/' . $imagesArrayToWorkOn[$i]->getCreationDate() . '.png" class="img_container" />';
+                                                }
                                                 break;
                                         }
                                         if ($this->imgCreationDate) {
