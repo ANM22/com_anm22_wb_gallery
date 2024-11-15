@@ -1,8 +1,12 @@
 <?php
 
-/* GALLERY */
-
-class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_element {
+/**
+ * Gallery plugin for ANM22 WebBase CMS.
+ * 
+ * @author Andrea Menghi <andrea.menghi@anm22.it>
+ */
+class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_element
+{
 
     var $elementClass = "com_anm22_wb_editor_page_element_gallery";
     var $elementPlugin = "com_anm22_wb_gallery";
@@ -35,10 +39,16 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
     var $galleryId = 0;				/*Id della gallery*/
     var $seeButton;				/*Scelta sul mostrare o no il button visualizza album*/
 
-    function importXMLdoJob($xml){
-
-        include_once 'gallery_functions.php';
-
+    /**
+     * @deprecated since editor 3.0
+     * 
+     * Method to init the element.
+     * 
+     * @param SimpleXMLElement $xml Element data
+     * @return void
+     */
+    public function importXMLdoJob($xml)
+    {
         $this->galleryElementTitle = htmlspecialchars_decode($xml->galleryElementTitle);
         $this->mode = htmlspecialchars_decode($xml->mode);
         $this->selectedCategory = htmlspecialchars_decode($xml->selectedCategory);
@@ -65,9 +75,65 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
             $this->seoTags = $xml->seoTags;
         }
 
+        $this->initLogics();
+    }
+
+    /**
+     * Method to init the element.
+     * 
+     * @param mixed[] $data Element data
+     * @return void
+     */
+    public function initData($data)
+    {
+        $this->galleryElementTitle = htmlspecialchars_decode($data['galleryElementTitle']);
+        $this->mode = htmlspecialchars_decode($data['mode']);
+        $this->selectedCategory = htmlspecialchars_decode($data['selectedCategory']);
+        $this->selectedGalleryTitle = htmlspecialchars_decode($data['selectedGalleryTitle']);
+        $this->elementFunction = htmlspecialchars_decode($data['elementFunction']);
+        $this->imgView = htmlspecialchars_decode($data['imgView']);
+        $this->galleryNumber = htmlspecialchars_decode($data['galleryNumber']);
+        $this->galleryCols = htmlspecialchars_decode($data['galleryCols']);
+        if (isset($data['externalLink']) && $data['externalLink']) {
+            $this->externalLink = htmlspecialchars_decode($data['externalLink']);
+        }
+        $this->galleryTitleShow = htmlspecialchars_decode($data['galleryTitleShow']);
+        $this->thumbnailGallery = htmlspecialchars_decode($data['thumbnailGallery']);
+        $this->galleryCreationDate = htmlspecialchars_decode($data['galleryCreationDate']);
+        if (isset($data['showGalleryDescription'])) {
+            $this->showGalleryDescription = htmlspecialchars_decode($data['showGalleryDescription']);
+        }
+        $this->imgNumber = htmlspecialchars_decode($data['imgNumber']);
+        if (isset($data['imgCols']) && $data['imgCols']) {
+            $this->imgCols = htmlspecialchars_decode($data['imgCols']);
+        }
+        $this->imgTitleShow = htmlspecialchars_decode($data['imgTitleShow']);
+        $this->imgCreationDate = htmlspecialchars_decode($data['imgCreationDate']);
+        if (isset($data['cssClass']) && $data['cssClass']) {
+            $this->cssClass = htmlspecialchars_decode($data['cssClass']);
+        }
+        $this->seeButton = htmlspecialchars_decode($data['seeButton']);
+        $this->imgDesc = htmlspecialchars_decode($data['imgDesc']);
+        if (isset($data['seoTags'])) {
+            $this->seoTags = $data['seoTags'];
+        }
+
+        $this->initLogics();
+    }
+
+    /**
+     * Method With the logics to init the element.
+     * 
+     * @param mixed[] $data Element data
+     * @return void
+     */
+    protected function initLogics()
+    {
+        include_once __DIR__ . '/gallery_functions.php';
+
         /*Reading the JSON file*/
         $jsonFile = NULL;
-        $jsonFile = file_get_contents($this->page->getHomeFolderRelativePHPURL()."gallery/gallery.json");
+        $jsonFile = file_get_contents($this->page->getHomeFolderRelativePHPURL() . "gallery/gallery.json");
 
         /*Decoding the file to an associative array*/
         $jsonArray = json_decode($jsonFile,true);
@@ -78,9 +144,9 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
             /*Creates the galleries container*/
             foreach ($jsonArray as $gallery) {
                 /*Objects*/
-                $galleryObject = new anm22_wb_gallery($gallery["title"],$gallery["category"],$gallery["publicBool"],$gallery["creationDate"],$gallery["description"]);
-                foreach($gallery["images"] as $image){
-                    $imageObject = new anm22_wb_img($image["name"],$image["extension"],$image["title"],$image["creationDate"],$image["description"]);
+                $galleryObject = new anm22_wb_gallery($gallery["title"], $gallery["category"], $gallery["publicBool"], $gallery["creationDate"], $gallery["description"] ?? null);
+                foreach ($gallery["images"] as $image) {
+                    $imageObject = new anm22_wb_img($image["name"], $image["extension"], $image["title"], $image["creationDate"], $image["description"]);
                     $galleryObject->addImage($imageObject);
                 }
                 $galleriesContainer->addGallery($galleryObject);
@@ -103,35 +169,40 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
             }
             
             if ($isSingleGallery) {
-                if (($gallery->getTitle()) and ($gallery->getTitle() != "")) {
+                if (($gallery->getTitle()) && ($gallery->getTitle() != "")) {
                     $this->page->title = $gallery->getTitle();
                 }
-                if (($gallery->getDescription()) and ($gallery->getDescription() != "")) {
-                    $descriptionString = str_replace("\n"," ",str_replace('"', "", $gallery->getDescription()));
+                if (($gallery->getDescription()) && ($gallery->getDescription() != "")) {
+                    $descriptionString = str_replace("\n", " ", str_replace('"', "", $gallery->getDescription()));
                     
                     if (strlen($descriptionString) > 160) {
-                        $this->page->description = htmlspecialchars(substr($descriptionString, 0, 160))."...";
+                        $this->page->description = htmlspecialchars(substr($descriptionString, 0, 160)) . "...";
                     } else {
                         $this->page->description = htmlspecialchars($descriptionString);
                     }
                 }
                 if ($gallery->getImagesArray()) {
                     $imageId = $gallery->getImagesArray()[0]->getCreationDate();
-                    $this->page->image = "http".($_SERVER['HTTPS']?"s":"")."://" . $_SERVER['HTTP_HOST'] . "/img/" . $gallery->getImagesArray()[0]->getPermalink() . "/img.png";
+                    $this->page->image = "http" . ($_SERVER['HTTPS'] ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . "/img/" . $gallery->getImagesArray()[0]->getPermalink() . "/img.png";
                 }
             }
         }
-
     }
 
-    function show() {
+    /**
+     * Render the page element
+     * 
+     * @return void
+     */
+    public function show()
+    {
         
-        include_once 'gallery_functions.php';
+        include_once __DIR__ . '/gallery_functions.php';
 
-        /*Reading the JSon file*/
+        /*Reading the JSON file*/
 
         $jsonFile = NULL;
-        $jsonFile = file_get_contents($this->page->getHomeFolderRelativePHPURL()."gallery/gallery.json");
+        $jsonFile = file_get_contents($this->page->getHomeFolderRelativePHPURL() . "gallery/gallery.json");
 
         /*Decoding the file to an associative array*/
 
@@ -144,13 +215,17 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                 // Titolo blocchetto
                 echo '<h1 class="gallery_element_title">' . $this->galleryElementTitle . '</h1>';
             }
-            $galleryId = htmlentities($_GET['galleryId']);
+            if (isset($_GET['galleryId'])) {
+                $galleryId = htmlentities($_GET['galleryId']);
+            } else {
+                $galleryId = null;
+            }
             switch ($this->elementFunction) {			/*Switch sulla base della funzione del blocchetto gallery (preview/show, show-only, preview-only, multi-show*/
                 case 'previewOnly':				/*Switch per la function preview-only*/
                     switch ($this->mode) {		/*Switch sulla base delle gallery mostrate (all, category, single) per la funzione di preview-only*/
                         case 'all':				/*Caso all function preview-only*/
                             $n = 0;
-                            for ($i=($galleriesContainer->getGalleriesCount()-1);$i>=0;$i--) {
+                            for ($i = ($galleriesContainer->getGalleriesCount() - 1); $i >= 0; $i--) {
                                 $gArray = $galleriesContainer->getGalleriesArray();
                                 $galleryToWorkOn = $gArray[$i];
                                 if ($galleryToWorkOn->getPublicBool()) {
@@ -874,15 +949,17 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
         echo '</div>';
     }
 
-    private function getPermalinkWithId ($id,$title) {
+    private function getPermalinkWithId($id,$title)
+    {
         $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $title);
         $clean = strtolower(trim($clean, '-'));
         $clean = preg_replace("/[\/_|+ -]+/", '-', $clean);
 
-        return $id."-".$clean;
+        return $id . "-" . $clean;
     }
 
-    private function getGalleryIdFromPermalink ($perma) {
+    private function getGalleryIdFromPermalink($perma)
+    {
         // Prima controllo se è stata richiesta una gallery esplicitamente
         $galleryId = null;
         if (isset($_GET['galleryId'])) {
@@ -894,7 +971,8 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
         return $galleryId;
     }
     
-    protected function getGalleryShowPage() {
+    protected function getGalleryShowPage()
+    {
         if ($this->externalLink) {
             return $this->externalLink;
         } else {
