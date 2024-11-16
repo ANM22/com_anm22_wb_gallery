@@ -86,7 +86,9 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
      */
     public function initData($data)
     {
-        $this->galleryElementTitle = htmlspecialchars_decode($data['galleryElementTitle']);
+        if ($data['galleryElementTitle'] ?? false) {
+            $this->galleryElementTitle = htmlspecialchars_decode($data['galleryElementTitle']);
+        }
         $this->mode = htmlspecialchars_decode($data['mode']);
         $this->selectedCategory = htmlspecialchars_decode($data['selectedCategory']);
         $this->selectedGalleryTitle = htmlspecialchars_decode($data['selectedGalleryTitle']);
@@ -100,7 +102,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
         $this->galleryTitleShow = htmlspecialchars_decode($data['galleryTitleShow']);
         $this->thumbnailGallery = htmlspecialchars_decode($data['thumbnailGallery']);
         $this->galleryCreationDate = htmlspecialchars_decode($data['galleryCreationDate']);
-        if (isset($data['showGalleryDescription'])) {
+        if ($data['showGalleryDescription'] ?? false) {
             $this->showGalleryDescription = htmlspecialchars_decode($data['showGalleryDescription']);
         }
         $this->imgNumber = htmlspecialchars_decode($data['imgNumber']);
@@ -183,7 +185,7 @@ class com_anm22_wb_editor_page_element_gallery extends com_anm22_wb_editor_page_
                 }
                 if ($gallery->getImagesArray()) {
                     $imageId = $gallery->getImagesArray()[0]->getCreationDate();
-                    $this->page->image = "http" . ($_SERVER['HTTPS'] ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . "/img/" . $gallery->getImagesArray()[0]->getPermalink() . "/img.png";
+                    $this->page->image = "https://" . $_SERVER['HTTP_HOST'] . "/img/" . $gallery->getImagesArray()[0]->getPermalink() . "/img.png";
                 }
             }
         }
